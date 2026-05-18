@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, ReactNode } from "react";
+import { getCalApi } from "@calcom/embed-react";
+import CalBookingSection from "@/components/CalBookingSection";
 
 function ScrollReveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,6 +18,85 @@ function ScrollReveal({ children, delay = 0, className }: { children: ReactNode;
     <div ref={ref} className={className} style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(26px)", transition: `opacity 0.75s ease ${delay}s, transform 0.75s cubic-bezier(0.22,1,0.36,1) ${delay}s` }}>
       {children}
     </div>
+  );
+}
+
+const FAQS = [
+  { q: "¿Cuánto tarda una automatización típica?",  a: "Depende del flujo y las integraciones. Un workflow estándar puede estar en 1 a 2 semanas; proyectos completos suelen ir de 3 a 6 semanas." },
+  { q: "¿Trabajan solo con n8n?",                   a: "Sí, somos especialistas en n8n, integraciones por API y arquitectura de workflows para operación B2B." },
+  { q: "¿Necesito infraestructura propia?",         a: "Podemos trabajar sobre n8n cloud o despliegues propios. Recomendamos la opción según seguridad, volumen y criticidad." },
+  { q: "¿Incluye soporte y mantenimiento?",         a: "Sí. Ofrecemos soporte, monitoreo, mejoras y optimización continua." },
+  { q: "¿Qué herramientas integran?",               a: "CRM, email marketing, formularios, helpdesk, Slack, Notion, Airtable, Google Sheets, ERPs y sistemas internos vía API." },
+];
+
+function FaqSection() {
+  const [open, setOpen] = useState<number>(-1);
+  return (
+    <section style={{ background:"#0d0f17", padding:"9rem 1.5rem 8rem", contentVisibility:"auto", containIntrinsicSize:"0 600px", position:"relative", overflow:"hidden" }}>
+      {/* Subtle radial glow top-center */}
+      <div style={{ position:"absolute", top:0, left:"50%", transform:"translateX(-50%)", width:700, height:320, background:"radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.12) 0%, transparent 70%)", pointerEvents:"none" }} />
+
+      <div style={{ maxWidth:1050, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1.4fr", gap:"5rem", alignItems:"start", position:"relative", zIndex:1 }}>
+
+        {/* Left col */}
+        <div style={{ position:"sticky", top:120 }}>
+          <div style={{ fontSize:"0.68rem", fontWeight:600, color:"rgba(99,153,230,0.8)", letterSpacing:"0.18em", textTransform:"uppercase" as const, marginBottom:"1rem", fontFamily:"var(--font-poppins)" }}>Soporte</div>
+          <h2 style={{ fontWeight:700, fontSize:"clamp(2rem,3vw,2.8rem)", color:"#fff", letterSpacing:"-0.035em", lineHeight:1.1, margin:"0 0 1.2rem" }}>
+            Preguntas<br/>
+            <em style={{ fontFamily:"Times New Roman, Georgia, serif", fontStyle:"italic", fontWeight:400, color:"rgba(99,153,230,0.9)" }}>frecuentes.</em>
+          </h2>
+          <p style={{ fontSize:"0.85rem", color:"rgba(255,255,255,0.4)", lineHeight:1.75, margin:"0 0 2rem", fontFamily:"var(--font-poppins)", maxWidth:260 }}>
+            Todo lo que necesitas saber sobre nuestro servicio de automatización B2B con n8n.
+          </p>
+          <a href="#contacto" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.82rem", fontWeight:600, color:"rgba(99,153,230,0.9)", textDecoration:"none", fontFamily:"var(--font-poppins)", borderBottom:"1px solid rgba(99,153,230,0.3)", paddingBottom:"0.1rem" }}
+            onMouseEnter={e => (e.currentTarget.style.color="#fff")}
+            onMouseLeave={e => (e.currentTarget.style.color="rgba(99,153,230,0.9)")}
+          >
+            ¿Más preguntas? Escríbenos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        {/* Right col — accordion */}
+        <div style={{ display:"flex", flexDirection:"column" }}>
+          {FAQS.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} style={{ borderTop: i === 0 ? "1px solid rgba(255,255,255,0.07)" : "none" }}>
+                <button
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  style={{
+                    width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between", gap:"1rem",
+                    background:"transparent", border:"none", borderBottom:"1px solid rgba(255,255,255,0.07)",
+                    padding:"1.4rem 0", cursor:"pointer", textAlign:"left",
+                  }}
+                >
+                  <span style={{ fontSize:"0.93rem", fontWeight:500, color: isOpen ? "#fff" : "rgba(255,255,255,0.75)", fontFamily:"var(--font-poppins)", lineHeight:1.4, transition:"color 0.2s" }}>
+                    {faq.q}
+                  </span>
+                  <span style={{
+                    width:26, height:26, borderRadius:"50%", flexShrink:0,
+                    border:"1px solid rgba(255,255,255,0.12)",
+                    display:"flex", alignItems:"center", justifyContent:"center",
+                    background: isOpen ? "rgba(37,99,235,0.35)" : "transparent",
+                    transition:"background 0.2s, transform 0.3s",
+                    transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                  }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </span>
+                </button>
+                <div style={{ maxHeight: isOpen ? 180 : 0, overflow:"hidden", transition:"max-height 0.35s cubic-bezier(0.4,0,0.2,1)" }}>
+                  <p style={{ padding:"1rem 2.5rem 1.5rem 0", fontSize:"0.86rem", color:"rgba(255,255,255,0.5)", lineHeight:1.8, margin:0, fontFamily:"var(--font-poppins)" }}>
+                    {faq.a}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
   );
 }
 
@@ -271,6 +352,13 @@ export default function Home() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+    })();
+  }, []);
+
   return (
     <main>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
@@ -300,11 +388,8 @@ export default function Home() {
             100% { transform:scale(1); }
           }
           @keyframes badge-enter {
-            0%   { opacity:0; transform:translateY(-70px); }
-            55%  { opacity:1; transform:translateY(7px); }
-            72%  { transform:translateY(-3px); }
-            85%  { transform:translateY(2px); }
-            100% { transform:translateY(0); }
+            0%   { opacity:0; }
+            100% { opacity:1; }
           }
           @keyframes hero-fade-in { from { opacity:0; } to { opacity:1; } }
           @keyframes hero-rise { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
@@ -340,6 +425,7 @@ export default function Home() {
             to   { transform: scale(1); opacity: 1; }
           }
           @keyframes line-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+          @keyframes comet-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           @keyframes node-pop {
             from { transform: scale(0); opacity: 0; }
             65%  { transform: scale(1.18); opacity: 1; }
@@ -372,7 +458,7 @@ export default function Home() {
 
             {/* ── Static rings (tighter: 110px gap, radii 420/530/640/750/860) */}
             <circle cx={1100} cy={1100} r={420} stroke="rgba(0,0,0,0.08)" strokeWidth="1" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.3s both" }} />
-            <circle cx={1100} cy={1100} r={530} stroke="rgba(0,0,0,0.06)" strokeWidth="1" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.5s both" }} />
+            <circle cx={1100} cy={1100} r={530} stroke="rgba(37,99,235,0.28)" strokeWidth="1.5" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.5s both" }} />
             <circle cx={1100} cy={1100} r={640} stroke="rgba(0,0,0,0.05)" strokeWidth="1" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.7s both" }} />
             <circle cx={1100} cy={1100} r={750} stroke="rgba(37,99,235,0.18)" strokeWidth="2" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.9s both" }} />
             <circle cx={1100} cy={1100} r={860} stroke="rgba(0,0,0,0.03)" strokeWidth="1" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 1.1s both" }} />
@@ -380,55 +466,53 @@ export default function Home() {
             <circle cx={1100} cy={1100} r={980} fill="none" stroke="url(#ring-grad-6)" strokeWidth="14" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 1.3s both" }} />
             <circle cx={1100} cy={1100} r={980} fill="none" stroke="url(#ring-grad-6)" strokeWidth="1" style={{ transformOrigin:"1100px 1100px", animation:"ring-enter 1.2s cubic-bezier(0.34,1.56,0.64,1) 1.3s both" }} />
 
-            {/* ── Ring 1 spark (r=420, C=2639) ─────────────────────────────── */}
-            <circle cx={1100} cy={1100} r={420} fill="none"
-              stroke="rgba(37,99,235,0.45)" strokeWidth="1.2" strokeDasharray="50 2589"
-              style={{ animation: "ring-spark 11s linear infinite" }} />
-            <circle cx={1100} cy={1100} r={420} fill="none"
-              stroke="white" strokeWidth="2.5" strokeDasharray="8 2631"
-              style={{ animation: "ring-spark 11s linear infinite" }} />
+            {/* ── Comet sparks — static arcs + rotate() = compositor-only, zero repaint ── */}
 
-            {/* ── Ring 2 spark (r=530, C=3330) ─────────────────────────────── */}
-            <circle cx={1100} cy={1100} r={530} fill="none"
-              stroke="rgba(37,99,235,0.35)" strokeWidth="1" strokeDasharray="50 3280"
-              style={{ animation: "ring2-cw 14s linear infinite" }} />
-            <circle cx={1100} cy={1100} r={530} fill="none"
-              stroke="white" strokeWidth="2" strokeDasharray="8 3322"
-              style={{ animation: "ring2-cw 14s linear infinite" }} />
+            {/* Ring 1 (r=420, 11s) */}
+            <g style={{ transformOrigin:"1100px 1100px", animation:"comet-spin 11s linear infinite", willChange:"transform" }}>
+              <path d="M 1480.6 922.6 A 420 420 0 0 1 1520 1100" fill="none" stroke="rgba(99,153,230,0.18)" strokeWidth="1.4" strokeLinecap="round"/>
+              <path d="M 1505.7 991.3 A 420 420 0 0 1 1520 1100" fill="none" stroke="rgba(99,153,230,0.55)" strokeWidth="2.2" strokeLinecap="round"/>
+              <circle cx={1520} cy={1100} r={3} fill="white" style={{ filter:"drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px #60a5fa) drop-shadow(0 0 14px rgba(37,99,235,0.9))" }}/>
+            </g>
 
-            {/* ── Ring 4 spark (r=750, C=4712) ─────────────────────────────── */}
-            <circle cx={1100} cy={1100} r={750} fill="none"
-              stroke="rgba(37,99,235,0.28)" strokeWidth="1" strokeDasharray="50 4662"
-              style={{ animation: "ring4-cw 20s linear infinite" }} />
-            <circle cx={1100} cy={1100} r={750} fill="none"
-              stroke="white" strokeWidth="2" strokeDasharray="8 4704"
-              style={{ animation: "ring4-cw 20s linear infinite" }} />
+            {/* Ring 2 (r=530, 14s) */}
+            <g style={{ transformOrigin:"1100px 1100px", animation:"comet-spin 14s linear infinite", willChange:"transform" }}>
+              <path d="M 1580.3 876.1 A 530 530 0 0 1 1630 1100" fill="none" stroke="rgba(99,153,230,0.18)" strokeWidth="1.3" strokeLinecap="round"/>
+              <path d="M 1611.9 962.8 A 530 530 0 0 1 1630 1100" fill="none" stroke="rgba(99,153,230,0.55)" strokeWidth="2"   strokeLinecap="round"/>
+              <circle cx={1630} cy={1100} r={3} fill="white" style={{ filter:"drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px #60a5fa) drop-shadow(0 0 14px rgba(37,99,235,0.9))" }}/>
+            </g>
 
-            {/* ── Ring 5 spark (r=860, C=5403) ─────────────────────────────── */}
-            <circle cx={1100} cy={1100} r={860} fill="none"
-              stroke="rgba(37,99,235,0.22)" strokeWidth="0.8" strokeDasharray="50 5353"
-              style={{ animation: "ring5-cw 26s linear infinite" }} />
-            <circle cx={1100} cy={1100} r={860} fill="none"
-              stroke="white" strokeWidth="2" strokeDasharray="8 5395"
-              style={{ animation: "ring5-cw 26s linear infinite" }} />
+            {/* Ring 4 (r=750, 20s) */}
+            <g style={{ transformOrigin:"1100px 1100px", animation:"comet-spin 20s linear infinite", willChange:"transform" }}>
+              <path d="M 1779.7 783.0 A 750 750 0 0 1 1850 1100" fill="none" stroke="rgba(99,153,230,0.15)" strokeWidth="1.2" strokeLinecap="round"/>
+              <path d="M 1824.4 905.9 A 750 750 0 0 1 1850 1100" fill="none" stroke="rgba(99,153,230,0.50)" strokeWidth="1.8" strokeLinecap="round"/>
+              <circle cx={1850} cy={1100} r={2.8} fill="white" style={{ filter:"drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #60a5fa) drop-shadow(0 0 12px rgba(37,99,235,0.8))" }}/>
+            </g>
+
+            {/* Ring 5 (r=860, 26s) */}
+            <g style={{ transformOrigin:"1100px 1100px", animation:"comet-spin 26s linear infinite", willChange:"transform" }}>
+              <path d="M 1879.4 736.6 A 860 860 0 0 1 1960 1100" fill="none" stroke="rgba(99,153,230,0.14)" strokeWidth="1.1" strokeLinecap="round"/>
+              <path d="M 1930.7 877.4 A 860 860 0 0 1 1960 1100" fill="none" stroke="rgba(99,153,230,0.48)" strokeWidth="1.7" strokeLinecap="round"/>
+              <circle cx={1960} cy={1100} r={2.8} fill="white" style={{ filter:"drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #60a5fa) drop-shadow(0 0 12px rgba(37,99,235,0.8))" }}/>
+            </g>
 
             {/* ── Badges — static with pulse/ripple + entrance ──────────────── */}
             {/* Ring 1 */}
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 1.3s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 1.3s both" }}>
               <circle cx={680} cy={1100} r={28} fill="none" stroke="rgba(37,99,235,0.35)" strokeWidth="1.2" style={{ transformOrigin:"680px 1100px", animation:"badge-ripple 7s ease-out 0s infinite" }} />
               <g style={{ transformOrigin:"680px 1100px", animation:"badge-pulse 7s ease-in-out 0s infinite" }}>
                 <circle cx={680} cy={1100} r={28} fill="white" stroke="rgba(0,0,0,0.10)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/n8n-icon.webp" x={666} y={1086} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 1.45s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 1.45s both" }}>
               <circle cx={1464} cy={890} r={28} fill="none" stroke="rgba(37,99,235,0.35)" strokeWidth="1.2" style={{ transformOrigin:"1464px 890px", animation:"badge-ripple 7s ease-out 1.1s infinite" }} />
               <g style={{ transformOrigin:"1464px 890px", animation:"badge-pulse 7s ease-in-out 1.1s infinite" }}>
                 <circle cx={1464} cy={890} r={28} fill="white" stroke="rgba(0,0,0,0.10)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/googlesheetslogo.png" x={1450} y={876} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 1.6s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 1.6s both" }}>
               <circle cx={1310} cy={1464} r={28} fill="none" stroke="rgba(37,99,235,0.35)" strokeWidth="1.2" style={{ transformOrigin:"1310px 1464px", animation:"badge-ripple 7s ease-out 2.2s infinite" }} />
               <g style={{ transformOrigin:"1310px 1464px", animation:"badge-pulse 7s ease-in-out 2.2s infinite" }}>
                 <circle cx={1310} cy={1464} r={28} fill="white" stroke="rgba(0,0,0,0.10)" strokeWidth="1" filter="url(#badge-shadow)" />
@@ -437,28 +521,28 @@ export default function Home() {
             </g>
 
             {/* Ring 2 */}
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 1.75s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 1.75s both" }}>
               <circle cx={641} cy={835} r={28} fill="none" stroke="rgba(37,99,235,0.30)" strokeWidth="1.2" style={{ transformOrigin:"641px 835px", animation:"badge-ripple 7s ease-out 3.3s infinite" }} />
               <g style={{ transformOrigin:"641px 835px", animation:"badge-pulse 7s ease-in-out 3.3s infinite" }}>
                 <circle cx={641} cy={835} r={28} fill="white" stroke="rgba(0,0,0,0.08)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/ChatGPT-Logo.svg.png" x={627} y={821} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 1.9s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 1.9s both" }}>
               <circle cx={620} cy={1324} r={28} fill="none" stroke="rgba(37,99,235,0.30)" strokeWidth="1.2" style={{ transformOrigin:"620px 1324px", animation:"badge-ripple 7s ease-out 4.4s infinite" }} />
               <g style={{ transformOrigin:"620px 1324px", animation:"badge-pulse 7s ease-in-out 4.4s infinite" }}>
                 <circle cx={620} cy={1324} r={28} fill="white" stroke="rgba(0,0,0,0.08)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/Google_Drive_icon_(2020).svg.png" x={606} y={1310} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.05s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.05s both" }}>
               <circle cx={1580} cy={1324} r={28} fill="none" stroke="rgba(37,99,235,0.30)" strokeWidth="1.2" style={{ transformOrigin:"1580px 1324px", animation:"badge-ripple 7s ease-out 5.5s infinite" }} />
               <g style={{ transformOrigin:"1580px 1324px", animation:"badge-pulse 7s ease-in-out 5.5s infinite" }}>
                 <circle cx={1580} cy={1324} r={28} fill="white" stroke="rgba(0,0,0,0.08)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/claude-logo.png" x={1566} y={1310} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.2s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.2s both" }}>
               <circle cx={1598} cy={919} r={28} fill="none" stroke="rgba(37,99,235,0.30)" strokeWidth="1.2" style={{ transformOrigin:"1598px 919px", animation:"badge-ripple 7s ease-out 0.5s infinite" }} />
               <g style={{ transformOrigin:"1598px 919px", animation:"badge-pulse 7s ease-in-out 0.5s infinite" }}>
                 <circle cx={1598} cy={919} r={28} fill="white" stroke="rgba(0,0,0,0.08)" strokeWidth="1" filter="url(#badge-shadow)" />
@@ -467,28 +551,28 @@ export default function Home() {
             </g>
 
             {/* Ring 3 */}
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.35s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.35s both" }}>
               <circle cx={1740} cy={1100} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"1740px 1100px", animation:"badge-ripple 7s ease-out 1.6s infinite" }} />
               <g style={{ transformOrigin:"1740px 1100px", animation:"badge-pulse 7s ease-in-out 1.6s infinite" }}>
                 <circle cx={1740} cy={1100} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/Notion-logo.svg.png" x={1726} y={1086} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.5s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.5s both" }}>
               <circle cx={460} cy={1100} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"460px 1100px", animation:"badge-ripple 7s ease-out 2.7s infinite" }} />
               <g style={{ transformOrigin:"460px 1100px", animation:"badge-pulse 7s ease-in-out 2.7s infinite" }}>
                 <circle cx={460} cy={1100} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/WhatsApp_Logo_green.svg.png" x={446} y={1086} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.65s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.65s both" }}>
               <circle cx={1702} cy={1319} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"1702px 1319px", animation:"badge-ripple 7s ease-out 3.8s infinite" }} />
               <g style={{ transformOrigin:"1702px 1319px", animation:"badge-pulse 7s ease-in-out 3.8s infinite" }}>
                 <circle cx={1702} cy={1319} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/shopifylogo.webp" x={1688} y={1305} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.8s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.8s both" }}>
               <circle cx={498} cy={1319} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"498px 1319px", animation:"badge-ripple 7s ease-out 4.9s infinite" }} />
               <g style={{ transformOrigin:"498px 1319px", animation:"badge-pulse 7s ease-in-out 4.9s infinite" }}>
                 <circle cx={498} cy={1319} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" filter="url(#badge-shadow)" />
@@ -497,14 +581,14 @@ export default function Home() {
             </g>
 
             {/* Ring 4 */}
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 2.95s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.95s both" }}>
               <circle cx={438} cy={1452} r={28} fill="none" stroke="rgba(37,99,235,0.20)" strokeWidth="1.2" style={{ transformOrigin:"438px 1452px", animation:"badge-ripple 7s ease-out 0.8s infinite" }} />
               <g style={{ transformOrigin:"438px 1452px", animation:"badge-pulse 7s ease-in-out 0.8s infinite" }}>
                 <circle cx={438} cy={1452} r={28} fill="white" stroke="rgba(0,0,0,0.06)" strokeWidth="1" filter="url(#badge-shadow)" />
                 <image href="/icons/stripelogo.png" x={424} y={1438} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
               </g>
             </g>
-            <g style={{ animation:"badge-enter 0.55s cubic-bezier(0.4,0,0.2,1) 3.1s both" }}>
+            <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 3.1s both" }}>
               <circle cx={1762} cy={1452} r={28} fill="none" stroke="rgba(37,99,235,0.20)" strokeWidth="1.2" style={{ transformOrigin:"1762px 1452px", animation:"badge-ripple 7s ease-out 1.9s infinite" }} />
               <g style={{ transformOrigin:"1762px 1452px", animation:"badge-pulse 7s ease-in-out 1.9s infinite" }}>
                 <circle cx={1762} cy={1452} r={28} fill="white" stroke="rgba(0,0,0,0.06)" strokeWidth="1" filter="url(#badge-shadow)" />
@@ -561,6 +645,7 @@ export default function Home() {
             maxWidth: "460px",
             fontWeight: 400,
             letterSpacing: "-0.01em",
+            fontFamily: "var(--font-poppins)",
             animation: "hero-rise 0.9s cubic-bezier(0.22,1,0.36,1) 0.55s both",
           }}>
             Diseñamos e implementamos automatizaciones inteligentes con n8n para que tu empresa trabaje sola.
@@ -568,10 +653,14 @@ export default function Home() {
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: "0.75rem", marginTop: "2.2rem", flexWrap: "wrap", justifyContent: "center", animation: "hero-rise 0.9s cubic-bezier(0.22,1,0.36,1) 0.75s both" }}>
-            <a href="#contacto" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#2563eb", color: "#fff", fontWeight: 600, fontSize: "0.88rem", padding: "0.78rem 1.6rem", borderRadius: "999px", textDecoration: "none", letterSpacing: "-0.01em", boxShadow: "0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
+            <button
+              data-cal-namespace="30min"
+              data-cal-link="n8n-automatizaciones/30min"
+              data-cal-config='{"layout":"month_view"}'
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#2563eb", color: "#fff", fontWeight: 600, fontSize: "0.88rem", padding: "0.78rem 1.6rem", borderRadius: "999px", border: "none", cursor: "pointer", letterSpacing: "-0.01em", boxShadow: "0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               Agendar una cita
-            </a>
+            </button>
             <a href="#servicios" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "#fff", color: "#0f0f0f", fontWeight: 500, fontSize: "0.88rem", padding: "0.78rem 1.6rem", borderRadius: "999px", border: "1px solid #e5e7eb", textDecoration: "none", letterSpacing: "-0.01em", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
               Ver servicios
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -1238,7 +1327,10 @@ export default function Home() {
         </div>
       </section>
 
-      <ScrollReveal delay={0.05}><BeforeAfterSlider /></ScrollReveal>
+      <div style={{ height:"4rem", background:"#fff" }} />
+      <ScrollReveal delay={0.05}><FaqSection /></ScrollReveal>
+
+      <ScrollReveal delay={0.05}><CalBookingSection /></ScrollReveal>
 
       {/* ── FOOTER ── */}
       <footer style={{ background:"#fff", borderTop:"1px solid rgba(0,0,0,0.07)", position:"relative", overflow:"hidden", contentVisibility:"auto", containIntrinsicSize:"0 400px" }}>
@@ -1317,6 +1409,30 @@ export default function Home() {
           </div>
         </div></ScrollReveal>
       </footer>
+
+      {/* WhatsApp FAB */}
+      <a
+        href="https://wa.me/34649970128"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+        style={{
+          position:"fixed", bottom:28, right:28, zIndex:200,
+          width:56, height:56, borderRadius:"50%",
+          background:"#25d366",
+          display:"flex", alignItems:"center", justifyContent:"center",
+          boxShadow:"0 4px 20px rgba(37,211,102,0.45), 0 2px 8px rgba(0,0,0,0.15)",
+          textDecoration:"none",
+          transition:"transform 0.2s, box-shadow 0.2s",
+          willChange:"transform",
+        }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform="scale(1.1)"; (e.currentTarget as HTMLElement).style.boxShadow="0 6px 28px rgba(37,211,102,0.6), 0 2px 10px rgba(0,0,0,0.18)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform="scale(1)"; (e.currentTarget as HTMLElement).style.boxShadow="0 4px 20px rgba(37,211,102,0.45), 0 2px 8px rgba(0,0,0,0.15)"; }}
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
     </main>
   );
 }
