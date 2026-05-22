@@ -142,3 +142,94 @@
     @apply font-sans;
   }
 }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+
+/* Globe tool cards — hidden below 1100px */
+.globe-tool-card { display: flex !important; }
+
+@media (max-width: 1100px) {
+  .globe-tool-card { display: none !important; }
+}
+
+/* FAQ two-column grid */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* Footer grids */
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Tablet 768-1100 ── */
+@media (max-width: 1024px) {
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* ── Mobile < 768px ── */
+@media (max-width: 768px) {
+  /* FAQ */
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .faq-sticky {
+    position: static !important;
+  }
+
+  /* Footer links */
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.2rem !important;
+  }
+
+  /* Footer CTA row */
+  .footer-cta-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2rem !important;
+  }
+
+  /* Video section */
+  .video-section {
+    padding: 3.5rem 1rem 4rem !important;
+  }
+
+  /* Globe section header */
+  .globe-header {
+    margin-bottom: 1.5rem !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Section 3 (video) connector SVGs — hide on mobile */
+  .s2-connector { display: none !important; }
+
+  /* Hero inner padding */
+  .hero-inner {
+    padding: 0 1rem !important;
+  }
+}
+
+/* ── Small mobile < 480px ── */
+@media (max-width: 480px) {
+  .footer-links-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .footer-cta-row {
+    gap: 1.5rem !important;
+  }
+}

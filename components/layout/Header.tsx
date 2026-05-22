@@ -1,48 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Inicio",    href: "/" },
-  { label: "Servicios", href: "#servicios" },
-  { label: "Nosotros",  href: "#nosotros" },
-  { label: "Blog",      href: "#blog" },
+  { label: "Inicio",           href: "/" },
+  { label: "Servicios",        href: "#servicios" },
+  { label: "¿Cómo trabajamos?", href: "#nosotros" },
+  { label: "Blog",             href: "#blog" },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
-      {/* ── DESKTOP PILL ── */}
+      {/* ── DESKTOP ── */}
       <header
+        className="hidden md:flex"
         style={{
           position: "fixed",
-          top: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
+          top: 0, left: 0, right: 0,
           zIndex: 100,
-          display: "flex",
+          height: 64,
           alignItems: "center",
-          gap: 4,
-          background: "#fff",
-          border: "1px solid rgba(0,0,0,0.08)",
-          borderRadius: 999,
-          padding: "5px 5px 5px 5px",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 6px rgba(0,0,0,0.05)",
+          background: scrolled ? "rgba(255,255,255,0.95)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.07)" : "1px solid transparent",
+          boxShadow: scrolled ? "0 1px 12px rgba(0,0,0,0.06)" : "none",
+          transition: "background 0.3s, box-shadow 0.3s, border-color 0.3s, backdrop-filter 0.3s",
+          padding: "0 2rem",
         }}
-        className="hidden md:flex"
       >
-        {/* Logo circle */}
-        <Link href="/" style={{ flexShrink: 0, marginRight: 4 }}>
+        {/* Inner container */}
+        <div style={{ width: "100%", maxWidth: 1170, margin: "0 auto", display: "flex", alignItems: "center", gap: 2 }}>
+
+        {/* Logo + wordmark */}
+        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.55rem", flexShrink: 0 }}>
           <div style={{
-            width: 40, height: 40, borderRadius: "50%",
+            width: 34, height: 34, borderRadius: "50%",
             background: "#eff6ff",
+            border: "1px solid rgba(37,99,235,0.14)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden",
           }}>
-            <svg width="22" height="22" viewBox="0 0 34 34" fill="none">
+            <svg width="18" height="18" viewBox="0 0 34 34" fill="none">
               <polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" stroke="#2563eb" strokeWidth="1.8" fill="#eff6ff"/>
               <circle cx="17" cy="17" r="2.6" fill="#2563eb"/>
               <circle cx="17" cy="6.5"  r="1.5" fill="#3b82f6"/>
@@ -59,141 +68,149 @@ export default function Header() {
               <line x1="19.4" y1="15.6" x2="25"   y2="12.8" stroke="#2563eb" strokeWidth="1.1"/>
             </svg>
           </div>
+          <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#0f0f0f", letterSpacing: "-0.025em", fontFamily: "var(--font-poppins)" }}>n8nlabs</span>
         </Link>
 
-        {/* Nav links */}
-        {navLinks.map(({ label, href }) => (
-          <Link
-            key={href}
-            href={href}
-            style={{
-              display: "inline-flex", alignItems: "center",
-              padding: "0.42rem 0.95rem",
-              fontSize: "0.87rem", fontWeight: 500,
-              color: "#555", textDecoration: "none",
-              borderRadius: 999,
-              transition: "background 0.15s, color 0.15s",
-              whiteSpace: "nowrap",
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f5f5f5"; (e.currentTarget as HTMLElement).style.color = "#0f0f0f"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#555"; }}
-          >
-            {label}
-          </Link>
-        ))}
+        {/* Nav — centered */}
+        <nav style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
+          {navLinks.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              style={{
+                display: "inline-flex", alignItems: "center",
+                padding: "0.4rem 0.9rem",
+                fontSize: "0.85rem", fontWeight: 500,
+                color: "#555", textDecoration: "none",
+                borderRadius: 8,
+                fontFamily: "var(--font-poppins)",
+                letterSpacing: "-0.01em",
+                transition: "background 0.15s, color 0.15s",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.05)"; (e.currentTarget as HTMLElement).style.color = "#0f0f0f"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#555"; }}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
 
         {/* CTA */}
         <Link
-          href="#contacto"
+          href="#agendar"
           style={{
-            display: "inline-flex", alignItems: "center", gap: "0.4rem",
-            background: "#0f0f0f", color: "#fff",
-            fontSize: "0.87rem", fontWeight: 600,
-            padding: "0.48rem 1.15rem",
+            display: "inline-flex", alignItems: "center", gap: "0.35rem",
+            background: "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)",
+            color: "#fff",
+            fontSize: "0.85rem", fontWeight: 600,
+            padding: "0.5rem 1.15rem",
             borderRadius: 999,
             textDecoration: "none",
-            marginLeft: 4,
-            transition: "background 0.15s",
+            fontFamily: "var(--font-poppins)",
+            letterSpacing: "-0.01em",
+            border: "1px solid rgba(255,255,255,0.2)",
+            boxShadow: "0 2px 10px rgba(37,99,235,0.3)",
+            transition: "box-shadow 0.15s, transform 0.15s",
             whiteSpace: "nowrap",
+            flexShrink: 0,
           }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#2563eb"; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#0f0f0f"; }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 18px rgba(37,99,235,0.45)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 10px rgba(37,99,235,0.3)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
         >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           Agendar llamada
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
         </Link>
+        </div>
       </header>
 
-      {/* ── MOBILE PILL ── */}
+      {/* ── MOBILE ── */}
       <header
         style={{
           position: "fixed",
-          top: 16,
-          left: "50%",
-          transform: "translateX(-50%)",
+          top: 0, left: 0, right: 0,
           zIndex: 100,
-          background: "#fff",
-          border: "1px solid rgba(0,0,0,0.08)",
-          borderRadius: menuOpen ? 20 : 999,
-          boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 6px rgba(0,0,0,0.05)",
-          width: "calc(100vw - 32px)",
-          maxWidth: 480,
-          overflow: "hidden",
-          transition: "border-radius 0.2s",
+          background: scrolled || menuOpen ? "rgba(255,255,255,0.95)" : "transparent",
+          backdropFilter: scrolled || menuOpen ? "blur(16px)" : "none",
+          WebkitBackdropFilter: scrolled || menuOpen ? "blur(16px)" : "none",
+          borderBottom: scrolled || menuOpen ? "1px solid rgba(0,0,0,0.07)" : "1px solid transparent",
+          boxShadow: scrolled || menuOpen ? "0 1px 12px rgba(0,0,0,0.06)" : "none",
+          transition: "background 0.3s, box-shadow 0.3s, border-color 0.3s",
         }}
         className="md:hidden"
       >
         {/* Top bar */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 5px 5px 5px" }}>
-          <Link href="/" style={{ flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 58, padding: "0 1rem" }}>
+          <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.45rem" }}>
             <div style={{
-              width: 38, height: 38, borderRadius: "50%",
-              background: "#0f0f0f",
+              width: 32, height: 32, borderRadius: "50%",
+              background: "#eff6ff", border: "1px solid rgba(37,99,235,0.14)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <svg width="20" height="20" viewBox="0 0 34 34" fill="none">
+              <svg width="17" height="17" viewBox="0 0 34 34" fill="none">
                 <polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" stroke="#2563eb" strokeWidth="1.8" fill="#eff6ff"/>
                 <circle cx="17" cy="17" r="2.6" fill="#2563eb"/>
               </svg>
             </div>
+            <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0f0f0f", letterSpacing: "-0.025em", fontFamily: "var(--font-poppins)" }}>n8nlabs</span>
           </Link>
 
-          <span style={{ fontSize: "0.88rem", fontWeight: 600, color: "#0f0f0f", letterSpacing: "-0.02em" }}>N8n Labs</span>
-
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              width: 38, height: 38, borderRadius: "50%",
-              background: "#f5f5f5", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" strokeWidth="2.2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" strokeWidth="2.2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            )}
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <Link href="#agendar" style={{
+              display: "inline-flex", alignItems: "center", gap: "0.3rem",
+              background: "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)",
+              color: "#fff", fontSize: "0.8rem", fontWeight: 600,
+              padding: "0.42rem 0.85rem", borderRadius: 999,
+              textDecoration: "none", whiteSpace: "nowrap",
+              boxShadow: "0 2px 8px rgba(37,99,235,0.3)",
+              fontFamily: "var(--font-poppins)",
+            }}>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Agendar
+            </Link>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                width: 34, height: 34, borderRadius: 8,
+                background: menuOpen ? "#f0f0f0" : "#f5f5f5",
+                border: "1px solid rgba(0,0,0,0.08)",
+                cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "background 0.15s",
+              }}
+              aria-label="Toggle menu"
+            >
+              {menuOpen
+                ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" strokeWidth="2.4" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" strokeWidth="2.4" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              }
+            </button>
+          </div>
         </div>
 
-        {/* Mobile dropdown */}
-        {menuOpen && (
-          <div style={{ padding: "0 10px 12px", display: "flex", flexDirection: "column", gap: 2 }}>
+        {/* Dropdown */}
+        <div style={{ maxHeight: menuOpen ? "260px" : "0", overflow: "hidden", transition: "max-height 0.3s cubic-bezier(0.4,0,0.2,1)" }}>
+          <nav style={{ padding: "6px 10px 12px", display: "flex", flexDirection: "column", gap: 2, borderTop: "1px solid rgba(0,0,0,0.06)" }}>
             {navLinks.map(({ label, href }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  display: "block", padding: "0.6rem 0.85rem",
-                  fontSize: "0.88rem", fontWeight: 500, color: "#555",
-                  textDecoration: "none", borderRadius: 12,
+                  display: "flex", alignItems: "center", padding: "0.65rem 0.85rem",
+                  fontSize: "0.88rem", fontWeight: 500, color: "#444",
+                  textDecoration: "none", borderRadius: 8,
+                  fontFamily: "var(--font-poppins)",
+                  transition: "background 0.12s, color 0.12s",
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#f5f5f5"; (e.currentTarget as HTMLElement).style.color = "#0f0f0f"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#555"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#444"; }}
               >
                 {label}
               </Link>
             ))}
-            <Link
-              href="#contacto"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem",
-                marginTop: 6, background: "#0f0f0f", color: "#fff",
-                fontSize: "0.88rem", fontWeight: 600,
-                padding: "0.65rem 1rem",
-                borderRadius: 12, textDecoration: "none",
-              }}
-            >
-              Agendar llamada
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </Link>
-          </div>
-        )}
+          </nav>
+        </div>
       </header>
     </>
   );
