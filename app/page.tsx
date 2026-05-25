@@ -1320,7 +1320,7 @@ export default function Home() {
           </div>
 
           {/* Links row */}
-          <div className="footer-links-grid" style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:"2rem", paddingTop:"2.5rem", borderTop:"1px solid rgba(255,255,255,0.12)", marginBottom:"2.5rem" }}>
+          <div className="footer-links-grid" style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr 1fr", gap:"2rem", paddingTop:"2.5rem", borderTop:"1px solid rgba(255,255,255,0.12)", marginBottom:"2.5rem" }}>
 
 
             {/* Brand */}
@@ -1388,6 +1388,20 @@ export default function Home() {
                   </a>
                 ))}
               </div>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <div style={{ fontSize:"0.67rem", fontWeight:600, color:"rgba(196,210,255,0.6)", letterSpacing:"0.14em", textTransform:"uppercase" as const, marginBottom:"1rem", fontFamily:"var(--font-poppins)" }}>Legal</div>
+              {[
+                { label:"Política de privacidad", href:"/politica-de-privacidad" },
+                { label:"Términos y condiciones", href:"/terminos" },
+                { label:"Eliminación de datos",   href:"/eliminacion-de-datos" },
+              ].map(({ label, href }) => (
+                <a key={href} href={href} style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color="#fff")}
+                  onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>{label}</a>
+              ))}
             </div>
           </div>
 
