@@ -752,10 +752,12 @@ export default function Home() {
             </g>
             <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.5s both" }}>
               <circle cx={499} cy={881} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"499px 881px", animation:"badge-ripple 7s ease-out 2.7s infinite" }} />
-              <g style={{ transformOrigin:"499px 881px", animation:"badge-pulse 7s ease-in-out 2.7s infinite" }}>
-                <circle cx={499} cy={881} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" style={{ filter:"drop-shadow(0 2px 8px rgba(0,0,0,0.11))" }} />
-                <image href="/icons/WhatsApp_Logo_green.svg.png" x={485} y={867} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
-              </g>
+              <a href="https://wa.me/34638619588" target="_blank" rel="noopener noreferrer" style={{ cursor:"pointer" }}>
+                <g style={{ transformOrigin:"499px 881px", animation:"badge-pulse 7s ease-in-out 2.7s infinite" }}>
+                  <circle cx={499} cy={881} r={28} fill="white" stroke="rgba(0,0,0,0.07)" strokeWidth="1" style={{ filter:"drop-shadow(0 2px 8px rgba(0,0,0,0.11))" }} />
+                  <image href="/icons/WhatsApp_Logo_green.svg.png" x={485} y={867} width={28} height={28} preserveAspectRatio="xMidYMid meet" />
+                </g>
+              </a>
             </g>
             <g style={{ animation:"badge-enter 0.6s cubic-bezier(0.22,1,0.36,1) 2.65s both" }}>
               <circle cx={1730} cy={1211} r={28} fill="none" stroke="rgba(37,99,235,0.25)" strokeWidth="1.2" style={{ transformOrigin:"1730px 1211px", animation:"badge-ripple 7s ease-out 3.8s infinite" }} />
@@ -1435,7 +1437,7 @@ export default function Home() {
 
       {/* WhatsApp FAB */}
       <a
-        href="https://wa.me/34649970128"
+        href="https://wa.me/34638619588"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp"
