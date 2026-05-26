@@ -45,28 +45,8 @@ export default function Header() {
 
         {/* Logo + wordmark */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.55rem", flexShrink: 0 }}>
-          <div style={{
-            width: 34, height: 34, borderRadius: "50%",
-            background: "#eff6ff",
-            border: "1px solid rgba(37,99,235,0.14)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
-            <svg width="18" height="18" viewBox="0 0 34 34" fill="none">
-              <polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" stroke="#2563eb" strokeWidth="1.8" fill="#eff6ff"/>
-              <circle cx="17" cy="17" r="2.6" fill="#2563eb"/>
-              <circle cx="17" cy="6.5"  r="1.5" fill="#3b82f6"/>
-              <circle cx="17" cy="27.5" r="1.5" fill="#3b82f6"/>
-              <circle cx="7.5"  cy="12" r="1.5" fill="#3b82f6"/>
-              <circle cx="26.5" cy="12" r="1.5" fill="#3b82f6"/>
-              <circle cx="7.5"  cy="22" r="1.5" fill="#3b82f6"/>
-              <circle cx="26.5" cy="22" r="1.5" fill="#3b82f6"/>
-              <line x1="17"   y1="8"    x2="17"   y2="14.4" stroke="#2563eb" strokeWidth="1.1"/>
-              <line x1="17"   y1="19.6" x2="17"   y2="26"   stroke="#2563eb" strokeWidth="1.1"/>
-              <line x1="9"    y1="12.8" x2="14.6" y2="15.6" stroke="#2563eb" strokeWidth="1.1"/>
-              <line x1="19.4" y1="18.4" x2="25"   y2="21.2" stroke="#2563eb" strokeWidth="1.1"/>
-              <line x1="9"    y1="21.2" x2="14.6" y2="18.4" stroke="#2563eb" strokeWidth="1.1"/>
-              <line x1="19.4" y1="15.6" x2="25"   y2="12.8" stroke="#2563eb" strokeWidth="1.1"/>
-            </svg>
+          <div style={{ width: 34, height: 34, borderRadius: "50%", overflow: "hidden", border: "1px solid rgba(37,99,235,0.14)", flexShrink: 0 }}>
+            <img src="/logogeneral.png" alt="n8nlabs" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
           </div>
           <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#0f0f0f", letterSpacing: "-0.025em", fontFamily: "var(--font-poppins)" }}>n8nlabs</span>
         </Link>
@@ -142,15 +122,8 @@ export default function Header() {
         {/* Top bar */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 58, padding: "0 1rem" }}>
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.45rem" }}>
-            <div style={{
-              width: 32, height: 32, borderRadius: "50%",
-              background: "#eff6ff", border: "1px solid rgba(37,99,235,0.14)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <svg width="17" height="17" viewBox="0 0 34 34" fill="none">
-                <polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" stroke="#2563eb" strokeWidth="1.8" fill="#eff6ff"/>
-                <circle cx="17" cy="17" r="2.6" fill="#2563eb"/>
-              </svg>
+            <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "1px solid rgba(37,99,235,0.14)", flexShrink: 0 }}>
+              <img src="/logogeneral.png" alt="n8nlabs" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             </div>
             <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0f0f0f", letterSpacing: "-0.025em", fontFamily: "var(--font-poppins)" }}>n8nlabs</span>
           </Link>
