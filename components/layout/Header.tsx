@@ -35,9 +35,9 @@ export default function Header() {
           +34 638 61 95 88
         </a>
         <span className="hidden sm:inline-block" style={{ width:1, height:14, background:"#ddd" }} />
-        <a href="https://maps.google.com/?q=Calle+Joaquín+María+López+26+Madrid" target="_blank" rel="noopener noreferrer" className="hidden sm:flex" style={{ alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#666", textDecoration:"none", fontFamily:"var(--font-poppins)", letterSpacing:"-0.01em", whiteSpace:"nowrap" }}>
+        <a href="https://maps.google.com/?q=Calle+Blasco+de+Garay+63+Chamberí+Madrid" target="_blank" rel="noopener noreferrer" className="hidden sm:flex" style={{ alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#666", textDecoration:"none", fontFamily:"var(--font-poppins)", letterSpacing:"-0.01em", whiteSpace:"nowrap" }}>
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink:0 }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Calle Joaquín María López 26, Local · Madrid
+          Calle Blasco de Garay 63, Local 2 · Chamberí · Madrid
         </a>
       </div>
 

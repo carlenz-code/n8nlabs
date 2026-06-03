@@ -902,7 +902,7 @@ export default function Home() {
                   <circle cx="12" cy="9" r="2.5" fill="#fff"/>
                 </svg>
               </div>
-              <span style={{ letterSpacing:"-0.01em", fontWeight:500 }}>Calle Joaquín María López 26 · Madrid</span>
+              <span style={{ letterSpacing:"-0.01em", fontWeight:500 }}>Calle Blasco de Garay 63, Local 2 · Madrid</span>
             </a>
           </div>
 
@@ -1216,7 +1216,7 @@ export default function Home() {
           {/* Map — full width, no border, rounded top */}
           <div style={{ borderRadius:"20px 20px 0 0", overflow:"hidden" }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.8!2d-3.7105!3d40.4335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228938e93f6c7%3A0x0!2sCalle+Joaqu%C3%ADn+Mar%C3%ADa+L%C3%B3pez+26%2C+Madrid!5e0!3m2!1ses!2ses!4v1"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.9!2d-3.7083!3d40.4329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCalle+Blasco+de+Garay+63%2C+Chamber%C3%AD%2C+Madrid!5e0!3m2!1ses!2ses!4v1"
               width="100%" height="320"
               style={{ border:0, display:"block" }}
               allowFullScreen loading="lazy"
@@ -1227,10 +1227,10 @@ export default function Home() {
           <div style={{ background:"#f7f8f9", borderRadius:"0 0 20px 20px", border:"1px solid #ebebeb", borderTop:"none", padding:"1.1rem 1.6rem", display:"flex", alignItems:"center", justifyContent:"space-between", gap:"1.5rem", flexWrap:"wrap" }}>
             <div style={{ display:"flex", alignItems:"center", gap:"0.5rem" }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span style={{ fontSize:"0.85rem", fontWeight:500, color:"#1a1a1a", fontFamily:"var(--font-poppins)", letterSpacing:"-0.01em" }}>C/ Joaquín María López 26, Local · Madrid</span>
-              <span style={{ fontSize:"0.75rem", color:"#bbb", fontFamily:"var(--font-poppins)", marginLeft:"0.5rem" }}>· Parking: C/ Blasco de Garay 61</span>
+              <span style={{ fontSize:"0.85rem", fontWeight:500, color:"#1a1a1a", fontFamily:"var(--font-poppins)", letterSpacing:"-0.01em" }}>C/ Blasco de Garay 63, Local 2 · Chamberí · Madrid</span>
+              <span style={{ fontSize:"0.75rem", color:"#bbb", fontFamily:"var(--font-poppins)", marginLeft:"0.5rem" }}>· Chamberí · 28015 Madrid</span>
             </div>
-            <a href="https://maps.google.com/?q=Calle+Joaquín+María+López+26+Madrid" target="_blank" rel="noopener noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"#fff", color:"#555", fontWeight:500, fontSize:"0.8rem", padding:"0.55rem 1rem", borderRadius:8, textDecoration:"none", fontFamily:"var(--font-poppins)", border:"1px solid #e0e0e0", flexShrink:0 }}>
+            <a href="https://maps.google.com/?q=Calle+Blasco+de+Garay+63+Chamberí+Madrid" target="_blank" rel="noopener noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"#fff", color:"#555", fontWeight:500, fontSize:"0.8rem", padding:"0.55rem 1rem", borderRadius:8, textDecoration:"none", fontFamily:"var(--font-poppins)", border:"1px solid #e0e0e0", flexShrink:0 }}>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               Cómo llegar
             </a>
@@ -1430,10 +1430,10 @@ export default function Home() {
                 onMouseEnter={e => (e.currentTarget.style.color="#fff")}
                 onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>+34 638 61 95 88</a>
               <div style={{ fontSize:"0.78rem", color:"rgba(255,255,255,0.35)", lineHeight:1.6, marginBottom:"0.3rem", fontFamily:"var(--font-poppins)" }}>
-                Calle Joaquín María López 26<br/>Local · Madrid
+                Calle Blasco de Garay 63, Local 2<br/>Chamberí · 28015 Madrid
               </div>
               <div style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.25)", lineHeight:1.5, fontFamily:"var(--font-poppins)" }}>
-                Parking público: C/ Blasco de Garay 61
+                Chamberí · 28015 Madrid
               </div>
               <div style={{ display:"flex", gap:"0.5rem", marginTop:"1rem", flexWrap:"wrap" }}>
                 {[
