@@ -845,8 +845,9 @@ export default function Home() {
           {/* CTAs */}
           <div className="hero-ctas" style={{ display: "flex", gap: "0.65rem", marginTop: "2.2rem", flexWrap: "wrap", justifyContent: "center", animation: "hero-rise 0.9s cubic-bezier(0.22,1,0.36,1) 0.75s both" }}>
             <a
-              href="#agendar"
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", fontWeight: 600, fontSize: "0.88rem", padding: "0.82rem 1.75rem", borderRadius: "999px", textDecoration: "none", letterSpacing: "-0.01em", fontFamily: "var(--font-poppins)", border: "1px solid rgba(255,255,255,0.22)", boxShadow: "0 4px 20px rgba(37,99,235,0.4), 0 1px 0 rgba(255,255,255,0.22) inset", transition: "box-shadow 0.15s, transform 0.15s" }}
+              href="https://cal.com/n8n-automatizaciones/30min"
+              target="_blank" rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", fontWeight: 600, fontSize: "0.88rem", padding: "0.82rem 1.75rem", borderRadius: "999px", textDecoration: "none", letterSpacing: "-0.01em", fontFamily: "var(--font-poppins)", border: "1px solid rgba(255,255,255,0.22)", boxShadow: "0 4px 20px rgba(37,99,235,0.4), 0 1px 0 rgba(255,255,255,0.22) inset", transition: "box-shadow 0.15s, transform 0.15s", cursor:"pointer" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 28px rgba(37,99,235,0.55), 0 1px 0 rgba(255,255,255,0.22) inset"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(37,99,235,0.4), 0 1px 0 rgba(255,255,255,0.22) inset"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
             >
@@ -854,12 +855,18 @@ export default function Home() {
               Agendar una cita
             </a>
             <a
-              href="#nosotros"
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", background: "rgba(255,255,255,0.88)", color: "#1a1a1a", fontWeight: 500, fontSize: "0.88rem", padding: "0.82rem 1.75rem", borderRadius: "999px", border: "1px solid #e2e8f0", textDecoration: "none", letterSpacing: "-0.01em", fontFamily: "var(--font-poppins)", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", backdropFilter: "blur(8px)", transition: "background 0.15s, transform 0.15s, border-color 0.15s" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.borderColor = "#cbd5e1"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.88)"; (e.currentTarget as HTMLElement).style.borderColor = "#e2e8f0"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+              href="https://wa.me/34638619588"
+              target="_blank" rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "rgba(255,255,255,0.92)", color: "#0f0f0f", fontWeight: 600, fontSize: "0.88rem", padding: "0.82rem 1.5rem", borderRadius: "999px", border: "1px solid rgba(255,255,255,0.6)", textDecoration: "none", letterSpacing: "-0.01em", fontFamily: "var(--font-poppins)", boxShadow: "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)", backdropFilter: "blur(12px)", transition: "transform 0.15s, box-shadow 0.15s" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 18px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)"; }}
             >
-              ¿Cómo trabajamos?
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span style={{ position:"relative", display:"inline-flex", alignItems:"center", justifyContent:"center", width:8, height:8, marginRight:2 }}>
+                <span style={{ position:"absolute", width:14, height:14, borderRadius:"50%", background:"rgba(34,197,94,0.25)", animation:"ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }} />
+                <span style={{ width:8, height:8, borderRadius:"50%", background:"#22c55e", display:"inline-block" }} />
+              </span>
+              +34 638 61 95 88
             </a>
           </div>
 
@@ -915,7 +922,7 @@ export default function Home() {
       </section>
 
       {/* ── SECTION 3 — Video demo ── */}
-      <section className="s2-section" style={{ padding:"0 1.5rem 0", background:"#fff", position:"relative", overflow:"hidden", contentVisibility:"auto", containIntrinsicSize:"0 900px" }}>
+      <section id="servicios" className="s2-section" style={{ padding:"0 1.5rem 0", background:"#fff", position:"relative", overflow:"hidden", contentVisibility:"auto", containIntrinsicSize:"0 900px" }}>
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes s2-rect-in {
             from { opacity: 0; transform: skewY(35deg) translateY(40px); }
@@ -970,7 +977,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}><div style={{ display:"flex", gap:"0.75rem", justifyContent:"center", marginBottom:0, flexWrap:"wrap" }}>
-            <a href="#agendar" style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", background:"#2563eb", color:"#fff", fontWeight:600, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
+            <a href="https://cal.com/n8n-automatizaciones/30min" style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", background:"#2563eb", color:"#fff", fontWeight:600, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
               Empezar ahora
             </a>
             <a href="#servicios" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"#fff", color:"#0f0f0f", fontWeight:500, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, border:"1px solid #e5e7eb", textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
@@ -1060,28 +1067,6 @@ export default function Home() {
           background:"radial-gradient(ellipse 70% 60% at 50% 100%, rgba(37,99,235,0.07) 0%, transparent 70%)" }} />
 
         {/* Illuminated line segments — glowing portions of the crosshatch lines */}
-        {([
-          { left:"11%",  top:"22%", w:120, rot: 45 },
-          { left:"14%",  top:"20%", w: 80, rot:-45 },
-          { left:"80%",  top:"12%", w:140, rot: 45 },
-          { left:"83%",  top:"9%",  w: 90, rot:-45 },
-          { left:"36%",  top:"8%",  w:100, rot: 45 },
-          { left:"65%",  top:"44%", w:130, rot:-45 },
-          { left:"62%",  top:"47%", w: 80, rot: 45 },
-          { left:"6%",   top:"58%", w:110, rot:-45 },
-          { left:"87%",  top:"62%", w:120, rot: 45 },
-          { left:"50%",  top:"15%", w: 90, rot:-45 },
-        ] as const).map(({left,top,w,rot},i)=>(
-          <div key={i} style={{
-            position:"absolute", left, top,
-            width:w, height:1.5,
-            transform:`translate(-50%,-50%) rotate(${rot}deg)`,
-            background:"linear-gradient(to right, transparent 0%, rgba(99,153,246,0.75) 40%, rgba(147,197,253,0.9) 50%, rgba(99,153,246,0.75) 60%, transparent 100%)",
-            pointerEvents:"none",
-            zIndex:0,
-            filter:"blur(0.4px)",
-          }}/>
-        ))}
 
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes g2-globe-in { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
@@ -1186,6 +1171,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── UBICACIÓN ── */}
+      <ScrollReveal delay={0.05}>
+      <section id="ubicacion" style={{ background:"#fff", padding:"3rem 1.5rem 4rem" }}>
+        <div style={{ maxWidth:1050, margin:"0 auto" }}>
+          {/* Title */}
+          <p style={{ fontSize:"0.72rem", fontWeight:600, color:"#aaa", letterSpacing:"0.12em", textTransform:"uppercase" as const, fontFamily:"var(--font-poppins)", marginBottom:"1rem" }}>Encuéntranos en</p>
+          {/* Map — full width, no border, rounded top */}
+          <div style={{ borderRadius:"20px 20px 0 0", overflow:"hidden" }}>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.8!2d-3.7105!3d40.4335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228938e93f6c7%3A0x0!2sCalle+Joaqu%C3%ADn+Mar%C3%ADa+L%C3%B3pez+26%2C+Madrid!5e0!3m2!1ses!2ses!4v1"
+              width="100%" height="320"
+              style={{ border:0, display:"block" }}
+              allowFullScreen loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          {/* Bar below map — rounded bottom, same width */}
+          <div style={{ background:"#f7f8f9", borderRadius:"0 0 20px 20px", border:"1px solid #ebebeb", borderTop:"none", padding:"1.1rem 1.6rem", display:"flex", alignItems:"center", justifyContent:"space-between", gap:"1.5rem", flexWrap:"wrap" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:"0.5rem" }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style={{ fontSize:"0.85rem", fontWeight:500, color:"#1a1a1a", fontFamily:"var(--font-poppins)", letterSpacing:"-0.01em" }}>C/ Joaquín María López 26, Local · Madrid</span>
+              <span style={{ fontSize:"0.75rem", color:"#bbb", fontFamily:"var(--font-poppins)", marginLeft:"0.5rem" }}>· Parking: C/ Blasco de Garay 61</span>
+            </div>
+            <a href="https://maps.google.com/?q=Calle+Joaquín+María+López+26+Madrid" target="_blank" rel="noopener noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"#fff", color:"#555", fontWeight:500, fontSize:"0.8rem", padding:"0.55rem 1rem", borderRadius:8, textDecoration:"none", fontFamily:"var(--font-poppins)", border:"1px solid #e0e0e0", flexShrink:0 }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Cómo llegar
+            </a>
+          </div>
+        </div>
+      </section>
+      </ScrollReveal>
+
       <div id="agendar"><ScrollReveal delay={0.05}><CalBookingSection /></ScrollReveal></div>
 
       <ScrollReveal delay={0.05}><FaqSection /></ScrollReveal>
@@ -1212,7 +1229,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}><div style={{ display:"flex", gap:"0.75rem", justifyContent:"center", marginBottom:0, flexWrap:"wrap" }}>
-            <a href="#agendar" style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", background:"#2563eb", color:"#fff", fontWeight:600, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
+            <a href="https://cal.com/n8n-automatizaciones/30min" style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", background:"#2563eb", color:"#fff", fontWeight:600, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 4px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
               Empezar ahora
             </a>
             <a href="#servicios" style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"#fff", color:"#0f0f0f", fontWeight:500, fontSize:"0.88rem", padding:"0.78rem 1.6rem", borderRadius:999, border:"1px solid #e5e7eb", textDecoration:"none", letterSpacing:"-0.01em", boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
@@ -1282,7 +1299,7 @@ export default function Home() {
                 <em style={{ fontFamily:"Times New Roman, Georgia, serif", fontStyle:"italic", fontWeight:400, color:"rgba(196,210,255,0.9)" }}>tu negocio con IA?</em>
               </h2>
               <a
-                href="#agendar"
+                href="https://cal.com/n8n-automatizaciones/30min"
                 style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", background:"#fff", color:"#1e1b4b", fontWeight:700, fontSize:"0.88rem", padding:"0.75rem 1.6rem", borderRadius:999, textDecoration:"none", letterSpacing:"-0.01em", transition:"background 0.15s, color 0.15s" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.88)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background="#fff"; }}
@@ -1373,6 +1390,15 @@ export default function Home() {
               <a href="mailto:kelatosclaude2@gmail.com" style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
                 onMouseEnter={e => (e.currentTarget.style.color="#fff")}
                 onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>kelatosclaude2@gmail.com</a>
+              <a href="tel:+34638619588" style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.color="#fff")}
+                onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>+34 638 61 95 88</a>
+              <div style={{ fontSize:"0.78rem", color:"rgba(255,255,255,0.35)", lineHeight:1.6, marginBottom:"0.3rem", fontFamily:"var(--font-poppins)" }}>
+                Calle Joaquín María López 26<br/>Local · Madrid
+              </div>
+              <div style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.25)", lineHeight:1.5, fontFamily:"var(--font-poppins)" }}>
+                Parking público: C/ Blasco de Garay 61
+              </div>
               <div style={{ display:"flex", gap:"0.5rem", marginTop:"1rem", flexWrap:"wrap" }}>
                 {[
                   { label:"Instagram", href:"https://www.instagram.com/n8n.labs/", icon:<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> },
@@ -1417,7 +1443,7 @@ export default function Home() {
 
       {/* Cal FAB */}
       <a
-        href="#agendar"
+        href="https://cal.com/n8n-automatizaciones/30min"
         aria-label="Agendar llamada"
         style={{
           position:"fixed", bottom:96, right:28, zIndex:200,

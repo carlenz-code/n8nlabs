@@ -122,6 +122,20 @@
   background-size: 22px 22px;
 }
 
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes testimonial-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes testimonial-scroll-rev {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 @keyframes light-drift {
   0%   { transform: translate(-50%, 0)   rotate(0deg)   scale(1);    }
   25%  { transform: translate(-46%, -6%) rotate(8deg)   scale(1.05); }
