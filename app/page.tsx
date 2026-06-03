@@ -547,7 +547,7 @@ export default function Home() {
   return (
     <main>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden" style={{ paddingTop: 64 }}>
+      <section className="relative min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden" style={{ paddingTop: 100 }}>
 
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes badge-pulse {
@@ -618,13 +618,14 @@ export default function Home() {
           }
           @media (max-width: 640px) {
             .hero-badge-label { display: none; }
-            .hero-content { padding: 0 1.25rem !important; margin-top: -8px !important; }
+            .hero-content { padding: 0 1.25rem !important; margin-top: 2rem !important; }
             .hero-cards { margin-top: 2.5rem !important; }
             .hero-card-1 { width: min(320px, calc(100vw - 2.5rem)) !important; }
             .hero-card-2 { width: min(300px, calc(100vw - 3.5rem)) !important; }
             .hero-card-3 { width: min(280px, calc(100vw - 4.5rem)) !important; }
             .hero-ctas { margin-top: 1.6rem !important; gap: 0.5rem !important; }
             .hero-ctas a { font-size: 0.84rem !important; padding: 0.72rem 1.4rem !important; }
+            .hero-address { display: flex !important; }
           }
         `}} />
 
@@ -867,6 +868,41 @@ export default function Home() {
                 <span style={{ width:8, height:8, borderRadius:"50%", background:"#22c55e", display:"inline-block" }} />
               </span>
               +34 638 61 95 88
+            </a>
+            <a
+              href="tel:+34910054012"
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "rgba(255,255,255,0.92)", color: "#0f0f0f", fontWeight: 600, fontSize: "0.88rem", padding: "0.82rem 1.5rem", borderRadius: "999px", border: "1px solid rgba(255,255,255,0.6)", textDecoration: "none", letterSpacing: "-0.01em", fontFamily: "var(--font-poppins)", boxShadow: "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)", backdropFilter: "blur(12px)", transition: "transform 0.15s, box-shadow 0.15s", whiteSpace:"nowrap" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 18px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)"; }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              +34 910 05 40 12
+            </a>
+          </div>
+          {/* Address button */}
+          <div className="hero-address" style={{ marginTop:"1rem", display:"flex", justifyContent:"center", animation:"hero-rise 0.9s cubic-bezier(0.22,1,0.36,1) 0.75s both" }}>
+            <a href="#ubicacion" onClick={e => { e.preventDefault(); document.getElementById("ubicacion")?.scrollIntoView({ behavior:"smooth" }); }}
+              style={{ display:"inline-flex", alignItems:"center", gap:"0.55rem", fontSize:"0.84rem", color:"#0f0f0f", textDecoration:"none", fontFamily:"var(--font-poppins)", cursor:"pointer", background:"#fff", padding:"0.82rem 1.2rem", borderRadius:999, border:"1px solid rgba(0,0,0,0.1)", boxShadow:"0 2px 12px rgba(0,0,0,0.12)", transition:"box-shadow 0.15s", whiteSpace:"nowrap" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow="0 4px 18px rgba(0,0,0,0.16)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow="0 2px 12px rgba(0,0,0,0.12)"; }}>
+              {/* Maps circle + pin */}
+              <div style={{ width:28, height:28, borderRadius:"50%", background:"#e8f0e8", border:"1.5px solid #c8d8c8", flexShrink:0, position:"relative", display:"flex", alignItems:"center", justifyContent:"center", overflow:"hidden" }}>
+                {/* Simplified map lines */}
+                <svg width="28" height="28" viewBox="0 0 28 28" style={{ position:"absolute", inset:0 }}>
+                  <rect width="28" height="28" fill="#eaf1ea"/>
+                  <line x1="0" y1="14" x2="28" y2="14" stroke="#c5d8c5" strokeWidth="2.5"/>
+                  <line x1="14" y1="0" x2="14" y2="28" stroke="#c5d8c5" strokeWidth="1.5"/>
+                  <rect x="4" y="6" width="8" height="5" rx="1" fill="#d4e5d4"/>
+                  <rect x="16" y="17" width="7" height="5" rx="1" fill="#d4e5d4"/>
+                  <rect x="17" y="7" width="6" height="4" rx="1" fill="#d4e5d4"/>
+                </svg>
+                {/* Pin */}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ position:"relative", zIndex:1, marginBottom:2 }}>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+                  <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+                </svg>
+              </div>
+              <span style={{ letterSpacing:"-0.01em", fontWeight:500 }}>Calle Joaquín María López 26 · Madrid</span>
             </a>
           </div>
 
