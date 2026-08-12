@@ -1423,9 +1423,9 @@ export default function Home() {
             {/* Contacto */}
             <div>
               <div style={{ fontSize:"0.67rem", fontWeight:600, color:"rgba(196,210,255,0.6)", letterSpacing:"0.14em", textTransform:"uppercase" as const, marginBottom:"1rem", fontFamily:"var(--font-poppins)" }}>Contacto</div>
-              <a href="mailto:kelatosclaude2@gmail.com" style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
+              <a href="mailto:soporte@automatizacionesn8n.com" style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
                 onMouseEnter={e => (e.currentTarget.style.color="#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>kelatosclaude2@gmail.com</a>
+                onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>soporte@automatizacionesn8n.com</a>
               <a href="tel:+34638619588" style={{ display:"block", fontSize:"0.81rem", color:"rgba(255,255,255,0.5)", textDecoration:"none", marginBottom:"0.55rem", fontFamily:"var(--font-poppins)", transition:"color 0.15s" }}
                 onMouseEnter={e => (e.currentTarget.style.color="#fff")}
                 onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.5)")}>+34 638 61 95 88</a>
