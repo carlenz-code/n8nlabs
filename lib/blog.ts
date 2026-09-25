@@ -6,7 +6,8 @@ import { Marked } from "marked";
 // Los artículos son archivos Markdown en content/blog/<slug>.md con estos datos al inicio (frontmatter):
 //   title, description, date (AAAA-MM-DD), slug (opcional, por defecto el nombre del archivo),
 //   keyword (opcional), tags (opcional, lista), updated (opcional), draft (opcional, true = no se publica),
-//   author (opcional, por defecto «N8n Labs»), category (opcional, por defecto «Automatización»)
+//   author (opcional, por defecto «N8n Labs»), category (opcional, por defecto «Automatización»),
+//   image (opcional, ruta de una imagen de public/, p. ej. /blog-img/mi-articulo-portada.jpg), imageAlt e imageCredit (opcionales)
 //
 // Reglas de seguridad para que un artículo mal formado NUNCA rompa el despliegue de la web:
 //  - un archivo inválido se ignora (con aviso en el log de build), no falla el build;
@@ -29,6 +30,10 @@ export interface PostMeta {
   keyword?: string;
   tags: string[];
   readingMinutes: number;
+  /** Ruta local de la foto de portada (dentro de public/); si falta, la web dibuja una portada generada. */
+  image?: string;
+  imageAlt?: string;
+  imageCredit?: string;
 }
 
 export interface Post extends PostMeta {
@@ -44,6 +49,9 @@ interface PostInterno extends Post {
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FECHA_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// Solo rutas locales de imágenes de la carpeta pública: nada de URLs externas ni rutas raras
+const IMAGEN_RE = /^\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_.-]+)*\.(?:jpe?g|png|webp)$/;
 
 const URL_SEGURA = /^(https?:\/\/|mailto:|\/(?!\/)|#)/i;
 
@@ -135,6 +143,9 @@ function leerArchivo(nombre: string): PostInterno | null {
       keyword: typeof data.keyword === "string" ? data.keyword : undefined,
       tags: Array.isArray(data.tags) ? data.tags.filter((t: unknown): t is string => typeof t === "string") : [],
       readingMinutes: Math.max(1, Math.round(palabras / 200)),
+      image: typeof data.image === "string" && IMAGEN_RE.test(data.image.trim()) && !data.image.includes("..") ? data.image.trim() : undefined,
+      imageAlt: typeof data.imageAlt === "string" && data.imageAlt.trim() ? data.imageAlt.trim().slice(0, 160) : undefined,
+      imageCredit: typeof data.imageCredit === "string" && data.imageCredit.trim() ? data.imageCredit.trim().slice(0, 120) : undefined,
       html,
       toc,
       draft: data.draft === true,
