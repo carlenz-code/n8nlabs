@@ -3,13 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const navLinks = [
+// Los anclajes llevan "/" delante para que también funcionen desde /blog y las páginas legales
+const navLinksBase = [
   { label: "Inicio",               href: "/" },
-  { label: "Servicios",            href: "#servicios" },
-  { label: "¿Dónde nos ubicamos?", href: "#ubicacion" },
+  { label: "Servicios",            href: "/#servicios" },
+  { label: "¿Dónde nos ubicamos?", href: "/#ubicacion" },
 ];
 
-export default function Header() {
+// showBlog: el enlace al blog solo aparece cuando ya hay artículos publicados
+export default function Header({ showBlog = false }: { showBlog?: boolean }) {
+  const navLinks = showBlog ? [...navLinksBase, { label: "Blog", href: "/blog" }] : navLinksBase;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 

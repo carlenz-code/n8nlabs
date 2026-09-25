@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import JsonLd from "@/components/seo/JsonLd";
+import { getAllPosts } from "@/lib/blog";
+import { BUSINESS, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 
 const inter = Geist({
   variable: "--font-inter",
@@ -16,9 +19,17 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "N8n Labs | Automatizaciones con n8n",
-  description:
-    "Diseñamos e implementamos automatizaciones con n8n para equipos B2B.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "es_ES",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +40,20 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${poppins.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white">
-        <Header />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: BUSINESS.name,
+            url: BUSINESS.url,
+            description: SITE_DESCRIPTION,
+            email: BUSINESS.email,
+            telephone: BUSINESS.telephone,
+            address: { "@type": "PostalAddress", ...BUSINESS.address },
+            areaServed: "ES",
+          }}
+        />
+        <Header showBlog={getAllPosts().length > 0} />
         {children}
       </body>
     </html>
