@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import TableOfContents from "@/components/blog/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { formatearFecha, getAllPosts, getPost } from "@/lib/blog";
 import { absoluteUrl, BUSINESS, SITE_NAME } from "@/lib/site";
@@ -30,6 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       publishedTime: post.date,
       modifiedTime: post.updated ?? post.date,
+      authors: [post.author],
+      section: post.category,
       tags: post.tags,
     },
     twitter: { card: "summary_large_image", title: post.title, description: post.description },
@@ -41,9 +44,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const post = getPost(slug);
   if (!post) notFound();
   const url = absoluteUrl(`/blog/${post.slug}`);
+  const actualizado = post.updated && post.updated !== post.date ? post.updated : null;
 
   return (
-    <main style={{ paddingTop: 96, paddingBottom: "5rem", minHeight: "100vh", background: "#fff" }}>
+    <main className="blog-page">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -55,8 +59,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               datePublished: post.date,
               dateModified: post.updated ?? post.date,
               inLanguage: "es",
+              articleSection: post.category,
               mainEntityOfPage: url,
-              author: { "@type": "Organization", name: BUSINESS.name, url: BUSINESS.url },
+              author: { "@type": "Organization", name: post.author, url: BUSINESS.url },
               publisher: { "@type": "Organization", name: BUSINESS.name, url: BUSINESS.url },
               ...(post.keyword ? { keywords: [post.keyword, ...post.tags].join(", ") } : {}),
             },
@@ -71,28 +76,71 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           ],
         }}
       />
-      <article style={{ maxWidth: 760, margin: "0 auto", padding: "0 1.5rem", fontFamily: "var(--font-poppins)" }}>
-        <Link href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.82rem", color: "#2563eb", textDecoration: "none", marginBottom: "2rem" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-          Volver al blog
-        </Link>
-        <header style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "clamp(1.8rem,4vw,2.4rem)", fontWeight: 700, color: "#0f0f0f", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: "0.75rem" }}>{post.title}</h1>
-          <p style={{ fontSize: "0.8rem", color: "#888" }}>
-            <time dateTime={post.date}>{formatearFecha(post.date)}</time>
-            {post.updated && post.updated !== post.date ? <> · Actualizado el <time dateTime={post.updated}>{formatearFecha(post.updated)}</time></> : null}
-            {" · "}{post.readingMinutes} min de lectura
-          </p>
-        </header>
-        <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
-        <aside style={{ marginTop: "3rem", padding: "1.25rem 1.4rem", border: "1px solid #e5e5e5", borderRadius: 14, background: "#fafafa" }}>
-          <p style={{ fontSize: "0.95rem", fontWeight: 600, color: "#0f0f0f", marginBottom: "0.35rem" }}>¿Quieres automatizar procesos en tu empresa?</p>
-          <p style={{ fontSize: "0.85rem", color: "#555", marginBottom: "0.9rem", lineHeight: 1.55 }}>Cuéntanos tu caso en una llamada de 30 minutos y te decimos qué se puede automatizar.</p>
-          <Link href="https://cal.com/n8n-automatizaciones/30min" style={{ display: "inline-block", background: "#2563eb", color: "#fff", fontSize: "0.85rem", fontWeight: 600, padding: "0.5rem 1.15rem", borderRadius: 999, textDecoration: "none" }}>
-            Reservar una llamada
-          </Link>
+
+      <div className="blog-shell">
+        {/* Índice lateral (solo pantallas anchas) */}
+        <aside className="blog-toc-col">
+          <TableOfContents items={post.toc} />
         </aside>
-      </article>
+
+        <article className="blog-col">
+          <p className="blog-breadcrumb">
+            <Link href="/blog">Blog</Link>
+            <span aria-hidden="true">/</span>
+            <span>{post.category}</span>
+          </p>
+          <h1 className="blog-title">{post.title}</h1>
+
+          <dl className="blog-meta">
+            <div>
+              <dt>Escrito por</dt>
+              <dd>{post.author}</dd>
+            </div>
+            <div>
+              <dt>Publicado</dt>
+              <dd><time dateTime={post.date}>{formatearFecha(post.date)}</time></dd>
+            </div>
+            {actualizado ? (
+              <div>
+                <dt>Actualizado</dt>
+                <dd><time dateTime={actualizado}>{formatearFecha(actualizado)}</time></dd>
+              </div>
+            ) : null}
+            <div>
+              <dt>Lectura</dt>
+              <dd>{post.readingMinutes} min</dd>
+            </div>
+          </dl>
+
+          <div className="blog-actionbar">
+            <p>{post.description}</p>
+            <Link href="https://cal.com/n8n-automatizaciones/30min" className="blog-pill">Reservar una llamada</Link>
+          </div>
+
+          {/* Índice plegable para móvil y tablet */}
+          {post.toc.length > 0 ? (
+            <details className="blog-toc-mobile">
+              <summary>En este artículo</summary>
+              <ol>
+                {post.toc.map((i) => (
+                  <li key={i.id}><a href={`#${i.id}`}>{i.text}</a></li>
+                ))}
+              </ol>
+            </details>
+          ) : null}
+
+          <div id="inicio-articulo" />
+          <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+          <aside className="blog-cta">
+            <p className="blog-cta-title">¿Quieres automatizar procesos en tu empresa?</p>
+            <p className="blog-cta-text">Cuéntanos tu caso en una llamada de 30 minutos y te decimos qué se puede automatizar.</p>
+            <Link href="https://cal.com/n8n-automatizaciones/30min" className="blog-pill">Reservar una llamada</Link>
+          </aside>
+        </article>
+
+        <div className="blog-right-col" aria-hidden="true" />
+      </div>
     </main>
   );
 }
