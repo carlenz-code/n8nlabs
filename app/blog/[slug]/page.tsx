@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Portada from "@/components/blog/Portada";
 import TableOfContents from "@/components/blog/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { formatearFecha, getAllPosts, getPost } from "@/lib/blog";
@@ -59,6 +60,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               datePublished: post.date,
               dateModified: post.updated ?? post.date,
               inLanguage: "es",
+              ...(post.image ? { image: absoluteUrl(post.image) } : {}),
               articleSection: post.category,
               mainEntityOfPage: url,
               author: { "@type": "Organization", name: post.author, url: BUSINESS.url },
@@ -111,6 +113,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               <dd>{post.readingMinutes} min</dd>
             </div>
           </dl>
+
+          <figure className="blog-hero">
+            {post.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={post.image} alt={post.imageAlt ?? post.title} width={1200} height={675} />
+            ) : (
+              <Portada slug={post.slug} category={post.category} />
+            )}
+            {post.image && post.imageCredit ? <figcaption>Foto: {post.imageCredit}</figcaption> : null}
+          </figure>
 
           <div className="blog-actionbar">
             <p>{post.description}</p>
